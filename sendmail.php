@@ -13,10 +13,10 @@ try {
     $message = $_POST['message'] ?? '';
     $subject = $_POST['subject'] ?? '';
 
-    // Validate user's email
+    //Validate user's email
     $isValidEmail = !empty($email) && filter_var($email, FILTER_VALIDATE_EMAIL);
 
-    // === 1️⃣ Send to Lawyer ===
+    //Send to Lawyer
     $mail = new PHPMailer(true);
     $mail->isSMTP();
     $mail->Host = 'mail.shiprasinghadvocate.com';
