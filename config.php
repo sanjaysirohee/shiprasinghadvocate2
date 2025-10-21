@@ -9,9 +9,9 @@ $password = "";
 $dbname = "shiprasinghadvocatedb";
 }else{
  $servername = "localhost";
- $username = "veloxnc1_veloxndbun";
- $password = "india@vbd121";
- $dbname = "veloxnc1_veloxndb";
+ $username = "shiprasinghadvocate_ssadb";
+ $password = "uy38fyLnM7cQZHWuvjqJ";
+ $dbname = "shiprasinghadvocate_ssadb";
 }
 
 

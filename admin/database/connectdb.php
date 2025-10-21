@@ -9,9 +9,9 @@ define("PASSWORD","");
 define("DATABASE","shiprasinghadvocatedb");
 }else{
 define("HOSTNAME","localhost");
-define("USERNAME","veloxnc1_veloxndbun");
-define("PASSWORD","india@vbd121");
-define("DATABASE","veloxnc1_veloxndb");
+define("USERNAME","shiprasinghadvocate_ssadb");
+define("PASSWORD","uy38fyLnM7cQZHWuvjqJ");
+define("DATABASE","shiprasinghadvocate_ssadb");
 }
 
 $con=new mysqli(HOSTNAME,USERNAME,PASSWORD,DATABASE) or die("Unable to connect");
