@@ -1,4 +1,14 @@
 <?php
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
+session_start();
+if (isset($_POST['vercode'])) {
+  if ((empty($_SESSION["vercode"])) || ($_SESSION["vercode"] != $_POST['vercode'])) {
+    die("<script>alert('Invalid Verification Code'); history.back();</script>");
+  }
+}
+
+
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
@@ -6,15 +16,70 @@ require 'PHPMailer/Exception.php';
 require 'PHPMailer/PHPMailer.php';
 require 'PHPMailer/SMTP.php';
 
+require 'config.php';
+
 try {
     // Collect form data safely
     $name = $_POST['name'] ?? '';
+    $phoneno = $_POST['phoneno'] ?? '';
     $email = $_POST['email'] ?? '';
     $message = $_POST['message'] ?? '';
     $subject = $_POST['subject'] ?? '';
 
     //Validate user's email
     $isValidEmail = !empty($email) && filter_var($email, FILTER_VALIDATE_EMAIL);
+
+
+
+    // Know query user location Code Start
+    $ip_address=$_SERVER['REMOTE_ADDR'];
+    /*Get user ip address details with geoplugin.net*/
+    if ($ip_address != '127.0.0.1' && $ip_address != '::1') {
+
+        $geopluginURL='http://www.geoplugin.net/php.gp?ip='.$ip_address;
+         $addrDetailsArr = @unserialize(file_get_contents($geopluginURL));
+        /*Get City name by return array*/
+         $city = $addrDetailsArr['geoplugin_city'] ?? 'Not Defined';
+        /*Get Country name by return array*/
+        $country = $addrDetailsArr['geoplugin_countryName'] ?? 'Not Defined';
+        /*Comment out these line to see all the posible details*/
+        /*echo '<pre>';
+        print_r($addrDetailsArr);
+        die();*/
+
+    }
+    else {
+    $city = 'Localhost';
+    $country = 'Localhost';
+    }
+    if(!$city){
+    $city='Not Define';
+    }if(!$country){
+    $country='Not Define';
+    }
+    $userLocation = $city .', '. $country;
+    $userCountry = $country;
+    // Know query user location Code End
+
+    //to know the url of the  contacted  page
+    $vpage_url = $_SERVER['HTTP_REFERER'] ?? 'Unknown';
+
+    $stmt = $conn->prepare("INSERT INTO req_query_table (full_name, phone_number, email, message, subject,Location,vpage_url) VALUES (?, ?, ?, ?, ?, ?, ?)");
+    $stmt->bind_param("sssssss", $name, $phoneno, $email, $message, $subject, $userLocation,$vpage_url);
+
+    if ($stmt->execute()) {
+    // echo "Data savsed to database successfully<br>";
+    } else {
+        echo "Database Error: " . $stmt->error;
+    }
+
+    $stmt->close();
+    $conn->close();
+
+
+    
+    
+    
 
     //Send to Lawyer
     $mail = new PHPMailer(true);
@@ -36,6 +101,7 @@ try {
         <h3>New Message from Your Website</h3>
         <p><b>Name:</b> {$name}</p>
         <p><b>Email:</b> {$email}</p>
+        <p><b>Phone Number:</b> {$phoneno}</p>
         <p><b>Message:</b><br>" . nl2br(htmlspecialchars($message)) . "</p>
     ";
     $mail->send();
