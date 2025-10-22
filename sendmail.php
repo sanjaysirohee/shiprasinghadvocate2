@@ -123,7 +123,7 @@ try {
         $userMail->Subject = "We have received your message!";
         $userMail->Body = "
             <p>Dear <b>{$name}</b>,</p>
-            <p>Thank you for reaching out to <b>Shipra Singh Advocate</b>. We’ve received your message and will get back to you soon.</p>
+            <p>Thank you for reaching out to <b>Shipra Singh Advocate</b>. We have received your message and will get back to you soon.</p>
             <p><b>Your Message:</b><br>" . nl2br(htmlspecialchars($message)) . "</p>
             <br><p>Best regards,<br><b>Shipra Singh Advocate Team</b></p>
         ";
@@ -134,6 +134,20 @@ try {
             error_log("User email failed: " . $userMail->ErrorInfo);
         }
     }
+
+    // Send message to Whatsapp Code Start
+    $Message = "&type=text&message=Thanks+for+contacting+with+Shipra+Singh+Advocate.+We+have+gotten+your+message,+Please+feel+free+to+post+more+queries+here.+We+will+get+back+to+you+soon...";
+
+  $url = 'https://chatbot.veloxn.com/api/send?number=91' . $phoneno . $Message . '&instance_id=68F267F3F0143&access_token=67b05e6bef4eb';
+  $ch = curl_init();
+  curl_setopt($ch, CURLOPT_URL, $url);
+  curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+  //curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+  $result = curl_exec($ch);
+  if (curl_errno($ch)) {
+      echo 'Error: ' . curl_error($ch);
+    }
+    curl_close($ch);
 
     echo "<script>alert('✔️Message has been sent successfully!'); window.location.href='enquiry';</script>";
 
