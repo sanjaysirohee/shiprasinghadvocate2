@@ -86,14 +86,14 @@ try {
     $mail->isSMTP();
     $mail->Host = 'mail.shiprasinghadvocate.com';
     $mail->SMTPAuth = true;
-    $mail->Username = 'contact@shiprasinghadvocate.com';
-    $mail->Password = 'india@P121';
+    $mail->Username = 'email@shiprasinghadvocate.com';
+    $mail->Password = 'india@P121#9';
     $mail->SMTPSecure = 'tls'; // try 'ssl' if TLS doesn't work
     $mail->Port = 587; // or 465 if SSL
 
-    $mail->setFrom('contact@shiprasinghadvocate.com', 'Lawyer Website Contact Form');
+    $mail->setFrom('email@shiprasinghadvocate.com', 'Lawyer Website Contact Form');
     if ($isValidEmail) $mail->addReplyTo($email, $name);
-    $mail->addAddress('contact@shiprasinghadvocate.com', 'Lawyer');
+    $mail->addAddress('email@shiprasinghadvocate.com', 'Lawyer');
 
     $mail->isHTML(true);
     $mail->Subject = "New Enquiry: " . htmlspecialchars($subject);
@@ -112,12 +112,12 @@ try {
         $userMail->isSMTP();
         $userMail->Host = 'mail.shiprasinghadvocate.com';
         $userMail->SMTPAuth = true;
-        $userMail->Username = 'contact@shiprasinghadvocate.com';
-        $userMail->Password = 'india@P121';
+        $userMail->Username = 'email@shiprasinghadvocate.com';
+        $userMail->Password = 'india@P121#9';
         $userMail->SMTPSecure = 'tls'; // or 'ssl'
         $userMail->Port = 587; // or 465
 
-        $userMail->setFrom('contact@shiprasinghadvocate.com', 'Shipra Singh Advocate');
+        $userMail->setFrom('email@shiprasinghadvocate.com', 'Shipra Singh Advocate');
         $userMail->addAddress($email, $name);
         $userMail->isHTML(true);
         $userMail->Subject = "We have received your message!";
@@ -136,7 +136,7 @@ try {
     }
 
     // Send message to Whatsapp Code Start
-    $Message = "&type=text&message=Thanks+for+contacting+with+Shipra+Singh+Advocate.+We+have+received+your+message,+Please+write+your+concern+here+more+queries+here...";
+    $Message = "&type=text&message=Thanks+for+contacting+with+Shipra+Singh+Advocate.+We+have+received+your+message,+Please+write+your+concern+here...";
 
   $url = 'https://chatbot.veloxn.com/api/send?number=91' . $phoneno . $Message . '&instance_id=68F267F3F0143&access_token=67b05e6bef4eb';
   $ch = curl_init();
