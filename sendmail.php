@@ -136,7 +136,7 @@ try {
     }
 
     // Send message to Whatsapp Code Start
-    $Message = "&type=text&message=Thanks+for+contacting+with+Shipra+Singh+Advocate.+We+have+gotten+your+message,+Please+feel+free+to+post+more+queries+here.+We+will+get+back+to+you+soon...";
+    $Message = "&type=text&message=Thanks+for+contacting+with+Shipra+Singh+Advocate.+We+have+received+your+message,+Please+write+your+concern+here+more+queries+here...";
 
   $url = 'https://chatbot.veloxn.com/api/send?number=91' . $phoneno . $Message . '&instance_id=68F267F3F0143&access_token=67b05e6bef4eb';
   $ch = curl_init();
